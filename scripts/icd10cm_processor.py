@@ -45,4 +45,5 @@ shorticd10cm_df = shorticd10cm[
 shorticd10cm = shorticd10cm.drop_duplicates()
 
 # Save a tab separated file
-shorticd10cm.to_csv("output\icd10cm\icd10cm3.csv", sep='\t')
+shorticd10cm.to_csv("output\icd10cm\icd10cm3.csv", sep='\t', index=False)
+

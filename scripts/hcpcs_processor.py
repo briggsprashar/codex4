@@ -31,5 +31,3 @@ shorthcpc['Last_updated'] = datetime.today().strftime('%Y-%m-%d')
 
 # Save a tab separated file
 shorthcpc.to_csv("output\hcpc\hcpc3.csv", sep='\t', index=False, header=True)
-
-
