@@ -1,7 +1,10 @@
 # Use latest versions (as of Sept 12, 2025) to avoid any compatibility issues
+## includes used for extrenal 3rd-party packages not included in the Python standard library
 pandas
 polars
 requests          
-logging               
 openpyxl
-                                       
+# Standard Python modules not to be included in requirements.tst
+## logging
+## io
+## re
