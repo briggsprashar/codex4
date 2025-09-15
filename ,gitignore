@@ -11,10 +11,7 @@ raw_downloads/*.*
 
 # DATASETS: these files contain protected data that cannot be accessed without permission
 ## in some cases these files can also be large
-input\hcpcs\HCPC2025_OCT_ANWEB.txt
-input\icd10US\icd10cm_order_2025.txt
-input\icd10WHO\icd102019syst_codes.txt
-input\loinc\Loinc.csv
+input/HCPC2025_OCT_ANWEB.xlsx
 
 # RAW DATA FILES for input\npi\ , input\rxnorm\ and input\snomed\ are publicly available information/datasets and need not be excluded.
 ## in fact, these files can be committed and in advanced stages of coding auto updating can be done from the specific url
