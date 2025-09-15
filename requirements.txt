@@ -1,0 +1,7 @@
+# Use latest versions (as of Sept 12, 2025) to avoid any compatibility issues
+pandas
+polars
+requests          
+logging               
+openpyxl
+                                       
