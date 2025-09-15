@@ -6,8 +6,9 @@ import openpyxl as pxl
 
 file_path = "input\icd10cm_2025.txt"
 
+# Define df / basic info / preview 
 icd10cm_df = pd.read_csv(file_path, delimiter='\t', dtype=str)
-print(icd10cm_df.head())
+icd10cm_df.info()
 
 # Explore raw file as csv to view
 icd10cm_df.to_csv("output\icd10cm\icd10cm.csv")
@@ -21,14 +22,13 @@ icd10cm_df.to_csv("output\icd10cm\icd10cm1.csv", index=False, sep='\t')
 icd10cm_df = pd.read_fwf(file_path, header=None,
     names=['Number', 'Code', 'Level', 'Description', 'Description2'])
 
-# Display basic structure and info
-icd10cm_df.info()
-
 # Identify 4 key columns named above to explore/extract
 icd10cm_df['Number']
 icd10cm_df['Code']
 icd10cm_df['Level']
 icd10cm_df['Description']
+
+print(icd10cm_df.head())
 
 # Extract 2 columns from above to new dataframe and add column with today's date
 ## use of copy() to create a copy of the selected columns
@@ -42,8 +42,10 @@ shorticd10cm_df = shorticd10cm[
     ]
 
 # Remove duplicate rows if any keeping the first occurrence
-shorticd10cm = shorticd10cm.drop_duplicates()
+shorticd10cm_df = shorticd10cm.drop_duplicates()
 
-# Save a tab separated file
+print(shorticd10cm_df.head())
+
+# Extract csv file with 'Code', 'Description' and 'Last_updated' columns
 shorticd10cm.to_csv("output\icd10cm\icd10cm3.csv", sep='\t', index=False)
 

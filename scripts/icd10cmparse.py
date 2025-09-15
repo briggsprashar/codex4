@@ -47,10 +47,12 @@ print(f"description_detailed: '{description_detailed}'")
 print('-' * 40)
 '''
 
-# Create a DataFrame from the parsed codes preserving column order
+# Define df / basic info / preview from the parsed codes preserving column order
 icd10cm_df = pd.DataFrame(codes) ## Create a DataFrame from the parsed codes, calling list to the dataframe
     # Alt code:
     # # icd10cm_df = pd.DataFrame(codes, columns=['order_num', 'code', 'level', 'description', 'description_detailed'])
+icd10cm_df.info()
+print(icd10cm_df.head()) # only last row is printed!!
 
 icd10cm_df.to_csv("output\icd10cm\icd10cm_parsed.csv", sep='\t', index=False)
 
