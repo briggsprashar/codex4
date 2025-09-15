@@ -1,7 +1,6 @@
 # RAW DATA FILES (exclude from repo). These files are likely large and do not need version control.
 input/*.*
 *.txt
-*.csv
 *.xml
 *.zip
 *.xlsx
