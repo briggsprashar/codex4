@@ -46,5 +46,6 @@ shorticd10who = shorticd10who[
     shorticd10who['detailed_title'].notna() & 
     (shorticd10who['detailed_title'].str.strip() != '')
     ]
+
 # Extract csv file with 'display_code', 'detailed_title' and 'last_updated' columns
 shorticd10who.to_csv("output\icd10who\icd10who3.csv", index=False)

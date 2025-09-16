@@ -8,7 +8,6 @@ input/*.*
 *.db
 *.RRF
 .DS_Store
-.keep
 raw_downloads/*.*
 
 # DATASETS: these files contain protected data that cannot be accessed without permission
