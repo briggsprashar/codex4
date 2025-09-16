@@ -34,5 +34,5 @@ shortloinc = shortloinc[
     shortloinc['Description'].notna() & 
     shortloinc['Description'].str.strip() != '']
 
-# Extract csv file with 'display_code', 'detailed_title' and 'last_updated' columns
+# Extract csv file with 'Code', 'Description' and 'Last_updated' columns
 shortloinc.to_csv("output\loinc\loinc3.csv", index=False)

@@ -1,17 +1,13 @@
 import pandas as pd
 from datetime import datetime
 
-# Load RxNorm dataset (pipe-delimited, no headers in source file)
+# Define df / basic info / preview 
+# RxNorm dataset (pipe-delimited, no headers in source file)
 rxnorm = pd.read_csv("input\RXNSAT.RRF",
     sep="|",
     header=None,
-    dtype=str
-)
-
-# Display structure and column metadata
+    dtype=str)
 rxnorm.info()
-
-# Preview first 5 rows
 print(rxnorm.head())
 
 # Explore key columns by index
