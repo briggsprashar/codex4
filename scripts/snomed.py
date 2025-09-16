@@ -1,12 +1,21 @@
 import pandas as pd
+import polars as pl 
 from datetime import datetime
 
 # Define df / basic info / preview 
 # Snomed ct data (tab-delimited, limited to 100,000)
-snomed = pd.read_csv('input\snomeddata.txt',
-    sep='\t', nrows=100000)
+snomed = pd.read_csv('input\snomeddata.txt', sep='\t', nrows=30000)
+# dtype=pl.Utf8
 snomed.info()
 print(snomed.head())
+
+# commands with polars
+# snomed = pl.read_csv('input\snomeddata.txt', separator='\t', n_rows=10000, truncate_ragged_lines=True, ignore_errors=True)
+# print(snomed.schema) # shows column names and their data types
+# print(snomed.shape) # shows number of rows and columns
+# print(snomed.head(n=5)) # shows first 5 rows
+
+
 
 # Explore key columns
 snomed['id']
@@ -36,7 +45,7 @@ shortsnomed = shortsnomed[
     ]
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortsnomed.to_csv("output\snomed\snomed.csv", index=False)
+shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
 
 print(f"Successfully parsed {len(shortsnomed)} records from snomeddata.txt")
 print(f"Saved to {'output\snomed\snomed.csv'}") 
