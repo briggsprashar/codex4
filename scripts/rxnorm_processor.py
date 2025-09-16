@@ -40,7 +40,7 @@ shortrxnorm = shortrxnorm[
 shortrxnorm.to_csv(r'output\rxnorm_short\rx_short.csv', sep='\t', index=False, header=True)
 
 print(f"Successfully parsed {len(shortrxnorm)} records from RXNATOMARCHIVE.RRF")
-print(f"Saved to {'output\rxnorm_short\rx_short.csv'}")
+print(f"Saved to {'output\rxnorm_short\rx_short.csv'}") # output is jumbled up letters
 print(f"Dataset shape: {shortrxnorm.shape}")
 print(f"\nFirst 5 rows:")
 print(shortrxnorm.head())
