@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Define df / basic info / preview 
 # RxNorm dataset (pipe-delimited, no headers in source file)
-rxnorm = pd.read_csv("input\RXNSAT.RRF", nrows=1000000,
+rxnorm = pd.read_csv("input\RXNSAT.RRF", nrows=50000,
     sep="|",
     header=None,
     dtype=str)
