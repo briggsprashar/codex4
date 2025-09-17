@@ -15,8 +15,6 @@ print(snomed.head())
 # print(snomed.shape) # shows number of rows and columns
 # print(snomed.head(n=5)) # shows first 5 rows
 
-
-
 # Explore key columns
 snomed['id']
 snomed['term']

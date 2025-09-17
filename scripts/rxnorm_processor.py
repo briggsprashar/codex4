@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Define df / basic info / preview 
 # RxNorm dataset (pipe-delimited, no headers in source file)
-rxnorm = pd.read_csv("input\RXNSAT.RRF",
+rxnorm = pd.read_csv("input\RXNSAT.RRF", nrows=1000000,
     sep="|",
     header=None,
     dtype=str)
@@ -13,7 +13,6 @@ print(rxnorm.head())
 # Explore key columns by index
 rxnorm[0]
 rxnorm[9]
-
 
 # Create a simplified DataFrame with selected columns
 shortrxnorm = rxnorm[[0, 9]].copy()
