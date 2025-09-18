@@ -11,7 +11,7 @@ icd10cm_df = pd.read_csv(file_path, delimiter='\t', dtype=str)
 icd10cm_df.info()
 
 # Explore raw file as csv to view
-icd10cm_df.to_csv("output\icd10cm\icd10cm.csv")
+# icd10cm_df.to_csv("output\icd10cm\icd10cm.csv")
 
 # File does not have headers or index
 

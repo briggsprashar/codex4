@@ -10,7 +10,7 @@ hcpc_df.info()
 print(hcpc_df.head())
 
 # Explore raw file as csv to view
-hcpc_df.to_csv("output\hcpc\hcpc.csv")
+# hcpc_df.to_csv("output\hcpc\hcpc.csv")
 
 # File has headers and is comma separated
 

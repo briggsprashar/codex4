@@ -10,7 +10,7 @@ icd10who_df.info()
 print(icd10who_df.head())
 
 # Explore raw file as csv to view
-icd10who_df.to_csv("output\icd10who\icd10who1.csv") 
+# icd10who_df.to_csv("output\icd10who\icd10who1.csv") 
 
 columns = ['level', 'type', 'usage', 'sort', 'parent', 'code', 'display_code', 
            'icd10_code', 'title_en', 'parent_title', 'detailed_title', 

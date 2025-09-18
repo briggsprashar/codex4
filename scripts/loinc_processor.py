@@ -10,7 +10,7 @@ loinc.info()
 print(loinc.head())
 
 # Explore raw file as csv to view
-loinc.to_csv("output\loinc\loinc1.csv") 
+# loinc.to_csv("output\loinc\loinc1.csv") 
 
 # CREATE a trimmed DataFrame with selected columns and assign it to a new VARIABLE
     # use of double square brackets to select multiple columns
