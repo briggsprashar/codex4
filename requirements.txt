@@ -4,6 +4,8 @@ pandas
 polars
 requests          
 openpyxl
+fastparaquet
+pyarrow
 # Standard Python modules not to be included in requirements.tst
 ## logging
 ## io

@@ -43,8 +43,8 @@ shortsnomed = shortsnomed[
     ]
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
-# shortsnomed.to_parquet("output\snomed\snomed_pq.csv", index=False)
+# shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
+shortsnomed.to_parquet("output\snomed\snomed_pq.csv", index=False)
 
 print(f"Successfully parsed {len(shortsnomed)} records from snomeddata.txt")
 print(f"Saved to {'output\snomed\snomed.csv'}") 
