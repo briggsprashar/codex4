@@ -15,10 +15,9 @@ raw_downloads/*.*
 input/HCPC2025_OCT_ANWEB.xlsx
 input/icd10cm_2025.txt
 
+#
 output/snomed/*.csv
 
-output/snomed/snomed_2.csv
-output/snomed/snomed_pl.csv
 
 # RAW DATA FILES for input/npi/ , input/rxnorm/ and input/snomed/ are publicly available information/datasets and need not be excluded.
 ## in fact, these files can be committed and in advanced stages of coding auto updating can be done from the specific url
