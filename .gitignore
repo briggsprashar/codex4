@@ -10,14 +10,17 @@ input/*.*
 .DS_Store
 raw_downloads/*.*
 
-# DATASETS: these files contain protected data that cannot be accessed without permission
+output/
+output/*.*
+
+# INPUT DATASETS: these files contain protected data that cannot be accessed without permission
 ## in some cases these files can also be large
 input/HCPC2025_OCT_ANWEB.xlsx
 input/icd10cm_2025.txt
 
-#
-output/snomed/*.csv
-
+# Ignore these scripts
+scripts/npi1.py 
+scripts\snomed_pl.py
 
 # RAW DATA FILES for input/npi/ , input/rxnorm/ and input/snomed/ are publicly available information/datasets and need not be excluded.
 ## in fact, these files can be committed and in advanced stages of coding auto updating can be done from the specific url

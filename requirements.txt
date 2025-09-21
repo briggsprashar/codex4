@@ -2,10 +2,10 @@
 ## includes used for extrenal 3rd-party packages not included in the Python standard library
 pandas
 polars
-requests          
-openpyxl
-fastparaquet
+requests       
 pyarrow
+openpyxl
+tabulate
 # Standard Python modules not to be included in requirements.tst
 ## logging
 ## io

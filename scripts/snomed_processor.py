@@ -1,15 +1,16 @@
-# Output is a parquet csv file
+# Using pandas, 30K rows, output is a a panda csv file and a parquet csv file
 import pandas as pd
-import polars as pl 
 from datetime import datetime
+import os 
+import gc
 
 # Define df / basic info / preview 
 # Snomed ct data (tab-delimited, limited to 100,000)
-snomed = pd.read_csv('input\snomeddata.txt', sep='\t', nrows=30000)
+snomed = pd.read_csv('input/snomeddata.txt', sep='\t', nrows=30000)
 # dtype=pl.Utf8
 snomed.info()
 print(snomed.head())
-
+print(f"Successfully loaded {len(snomed)} records from Snomed data")
 # commands with polars
 # snomed = pl.read_csv('input\snomeddata.txt', separator='\t', n_rows=10000, truncate_ragged_lines=True, ignore_errors=True)
 # print(snomed.schema) # shows column names and their data types
@@ -44,11 +45,21 @@ shortsnomed = shortsnomed[
     ]
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-# shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
-shortsnomed.to_parquet("output\snomed\snomed_pq.csv", index=False)
+shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
+shortsnomed.to_parquet("output/snomed/snomed_pq.csv", index=False)
 
 print(f"Successfully parsed {len(shortsnomed)} records from snomeddata.txt")
 print(f"Saved to {'output\snomed\snomed.csv'}") 
 print(f"Dataset shape: {shortsnomed.shape}")
 print(f"\nFirst 5 rows:")
 print(shortsnomed.head())
+
+# File size
+file_size_bytes = os.path.getsize("output/snomed/snomed_pq.csv")
+file_size_mb = file_size_bytes / (1024 * 1024)
+print(f"File size: {file_size_mb:.2f} MB")
+
+# Memory usage
+print (f"\nMemory usage (MB): {snomed.memory_usage(deep=True).sum() / 1024**2:.2f}") # different from polars
+
+gc.collect() 

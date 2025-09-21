@@ -1,24 +1,21 @@
 import pandas as pd
 from datetime import datetime
+import os
+import gc
 
-# Define df / basic info / preview 
-# RxNorm dataset (pipe-delimited, no headers in source file)
 rxnorm = pd.read_csv("input\RXNSAT.RRF", nrows=50000,
-    sep="|",
-    header=None,
-    dtype=str)
+    sep="|",        # pipe-delimited in raw file
+    header=None,    # no headers in raw file
+    dtype=str)      # can also use e before file path above to identify raw string data
 rxnorm.info()
 print(rxnorm.head())
 
 # Explore key columns by index
-rxnorm[0]
-rxnorm[9]
+rxnorm[[0, 9]]
 
-# Create a simplified DataFrame with selected columns
-shortrxnorm = rxnorm[[0, 9]].copy()
 
-# Add timestamp column for tracking updates
-shortrxnorm['Last_updated'] = datetime.today().strftime('%m-%d-%Y')
+shortrxnorm = rxnorm[[0, 9]].copy() # Create a simplified DataFrame with selected columns
+shortrxnorm['Last_updated'] = datetime.today().strftime('%m-%d-%Y') # Add new column with today's date
 
 # Rename columns for clarity and consistency
 shortrxnorm = shortrxnorm.rename(columns={
@@ -39,3 +36,13 @@ print(f"Saved to {'output\rxnorm_short\rx_short.csv'}") # output is jumbled up l
 print(f"Dataset shape: {shortrxnorm.shape}")
 print(f"\nFirst 5 rows:")
 print(shortrxnorm.head())
+
+# File size
+file_size_bytes = os.path.getsize(r"output\rxnorm_short\rx_short.csv")
+file_size_mb = file_size_bytes / (1024 * 1024)
+print(f"File size: {file_size_mb:.2f} MB")
+
+# Memory usage
+print (f"\nMemory usage (MB): {rxnorm.memory_usage(deep=True).sum() / 1024**2:.2f}") # different from polars
+
+gc.collect()
