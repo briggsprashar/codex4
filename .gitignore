@@ -1,3 +1,7 @@
+
+output/
+output/*.*
+
 # RAW DATA FILES (exclude from repo). These files are likely large and do not need version control.
 input/
 input/*.*
@@ -9,9 +13,6 @@ input/*.*
 *.RRF
 .DS_Store
 raw_downloads/*.*
-
-output/
-output/*.*
 
 # INPUT DATASETS: these files contain protected data that cannot be accessed without permission
 ## in some cases these files can also be large
