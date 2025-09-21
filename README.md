@@ -13,10 +13,10 @@ From identified medical codexes (7 different medical codex types; collectively c
 ---
 
 ## Tech-stack
-- VSCode
 - Python 3.13.7
-- VSCode extensions
-- Github
+- Visual Code Studio (recommended editor)
+- Github (version control and code hosting)
+ 
 ---
 
 ## Data Sources
