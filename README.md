@@ -167,6 +167,6 @@ Move on to the next project, but after understanding the concepts not just hacki
 
 
 ---
-## ✨ 📊 To many more data pipelines, smooth data flows and insightful analytics ahead! 📊 ✨
+✨ 📊 To many more data pipelines, smooth data flows and insightful analytics ahead! 📊
 
 
