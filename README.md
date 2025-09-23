@@ -59,13 +59,14 @@ medical-codex-pipeline/
 3. VSCode environment based on Requirements.txt and additional dependencies 
     - Pandas
     - Polars
-    - Requests       
+    - Tabulate
+    - Openpyxl
+
+    - Requests    
     - Pyarrow
     - Fastparaquet
     - Wheel
-    - Tabulate
-    - PiPy
-    - Openpyxl
+    - PyPi
 
 4. Data Pipeline development
     - Download raw data files for ICD-10(WHO) NPI, RxNorm and SNOMED from identified under Data Sources above 

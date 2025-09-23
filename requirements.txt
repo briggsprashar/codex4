@@ -1,11 +1,18 @@
 # Use latest versions (as of Sept 12, 2025) to avoid any compatibility issues
 ## includes used for extrenal 3rd-party packages not included in the Python standard library
-pandas
-polars
-requests       
-pyarrow
-openpyxl
-tabulate
+Pandas
+Polars
+Openpyxl
+Tabulate
+
+
+??
+Requests       
+Pyarrow
+Fastparquet
+Wheel
+Pypi
+
 # Standard Python modules not to be included in requirements.tst
 ## logging
 ## io

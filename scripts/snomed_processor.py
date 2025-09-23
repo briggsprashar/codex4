@@ -8,9 +8,10 @@ import gc
 # Snomed ct data (tab-delimited, limited to 100,000)
 snomed = pd.read_csv('input/snomeddata.txt', sep='\t', nrows=30000)
 # dtype=pl.Utf8
-snomed.info()
+snomed.info
 print(snomed.head())
-print(f"Successfully loaded {len(snomed)} records from Snomed data")
+print(snomed.iloc[0]) # displays contents of first column; snapshots row contents
+print(f"\nSuccessfully loaded {len(snomed)} records from Snomed data")
 # commands with polars
 # snomed = pl.read_csv('input\snomeddata.txt', separator='\t', n_rows=10000, truncate_ragged_lines=True, ignore_errors=True)
 # print(snomed.schema) # shows column names and their data types
@@ -35,6 +36,8 @@ shortsnomed = shortsnomed.rename(columns={
     'term': 'Description'
     })
 
+print(f"\nCreated a copy with columns \033[34;1;4m'Code', 'Description' and 'Last_updated'\033[0m")
+
 # Remove duplicate rows
 shortsnomed = shortsnomed.drop_duplicates()
 
@@ -45,21 +48,21 @@ shortsnomed = shortsnomed[
     ]
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortsnomed.to_csv("output\snomed\snomed_pd.csv", index=False)
+shortsnomed.to_csv("output/snomed/snomed_pd.csv", index=False)
 shortsnomed.to_parquet("output/snomed/snomed_pq.csv", index=False)
 
-print(f"Successfully parsed {len(shortsnomed)} records from snomeddata.txt")
-print(f"Saved to {'output\snomed\snomed.csv'}") 
-print(f"Dataset shape: {shortsnomed.shape}")
+print(f"\nSuccessfully parsed {len(shortsnomed)} records from snomeddata.txt")
+print(f"\nSaved to {'output/snomed/snomed.csv'}") 
+print(f"\nDataset shape: {shortsnomed.shape}")
 print(f"\nFirst 5 rows:")
 print(shortsnomed.head())
 
 # File size
 file_size_bytes = os.path.getsize("output/snomed/snomed_pq.csv")
 file_size_mb = file_size_bytes / (1024 * 1024)
-print(f"File size: {file_size_mb:.2f} MB")
+print(f"\nExtracted SNPMED File size: {file_size_mb:.2f} MB")
 
 # Memory usage
-print (f"\nMemory usage (MB): {snomed.memory_usage(deep=True).sum() / 1024**2:.2f}") # different from polars
+print (f"\nMemory usage (MB): {snomed.memory_usage(deep=True).sum() / 1024**2:.2f}\n") # different from polars
 
 gc.collect() 

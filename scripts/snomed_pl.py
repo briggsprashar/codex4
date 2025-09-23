@@ -6,10 +6,10 @@ from pathlib import Path
 from datetime import datetime
 import gc
 
-file_path = Path('input\snomeddata.txt')
+file_path = Path('input\\snomeddata.txt')
 
 snomed = pl.read_csv(file_path)    # Explore raw file
-snomed.write_csv("output\snomed\snomedraw.csv") 
+snomed.write_csv("output\\snomed\\snomedraw.csv") 
 
 snomed = pl.read_csv(
     file_path,
@@ -40,13 +40,13 @@ copy_snomed = snomed.select([
     )
 
 # copy_snomed.write_csv("output\snomed\snomed_pl.csv")
-copy_snomed.write_parquet("output\snomed\snomed_polarspq.csv")
+copy_snomed.write_parquet("output\\snomed\\snomed_polarspq.csv")
 
-print(f"Created copy with columns 'Code', 'Description' and 'last_updated'")
+print(f"\nCreated copy with columns 'Code', 'Description' and 'last_updated'")
 
-print(f"Successfully parsed {len(snomed)} records from SNOMED CT file")
-print(f"Saved to {"output\snomed\snomed_2.csv"}")
-print(f"Dataset shape: {snomed.shape}")
+print(f"\nSuccessfully parsed {len(snomed)} records from SNOMED CT file")
+print(f"\nSaved to {"output\\snomed\\snomed_2.csv"}")
+print(f"\nDataset shape: {snomed.shape}")
 print(f"\nColumn names: {snomed.columns}")
 print(f"\nFirst 5 rows:")
 print(snomed.head())
@@ -56,7 +56,7 @@ print(f"\nActive terms count: {snomed.filter(pl.col('active') == 1).height}")
 print(f"Language codes: {snomed['languageCode'].unique().to_list()}")
 
 # File size
-file_size_bytes = os.path.getsize("output\snomed\snomed_polarspq.csv")
+file_size_bytes = os.path.getsize("output\\snomed\\snomed_polarspq.csv")
 file_size_mb = file_size_bytes / (1024 * 1024)
 print(f"File size: {file_size_mb:.2f} MB")
 
