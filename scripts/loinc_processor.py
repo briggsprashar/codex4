@@ -1,24 +1,35 @@
 import pandas as pd 
 from datetime import datetime
+from collections import Counter
 import openpyxl as pxl
 import os
 import gc
 
-file_path="input\\Loinc.csv"
-
+# input file path
+inputfile_path= "input\\Loinc.csv"
+finaloutputfile_path = "output\\loinc\\loinc3.csv"
 # pd.set_option('display.max_columns', None)
 
-loinc= pd.read_csv(file_path,low_memory=False,sep=',')
+# dataframe 
+loinc= pd.read_csv(inputfile_path,low_memory=False,sep=',')
 
-print(f"\nSuccessfully \033[34;1;4mLOADED\033[0m {len(loinc)} LOINC records")
+print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(loinc)} LOINC records")
 
-print(f"\nLOINC \033[34;1;4mFILE INFO\033[0m\n") # basic info: range index, data columns (total columns, index, column headers, non-null count, dtype, memory usage)
+print(f"\n>>> LOINC Dataset \033[33;1mSHAPE:\033[0m {loinc.shape}")
+
+print(f"\n2>>> LOINC \033[33;1mFILE INFO\033[0m\n") # basic info: range index, data columns (total columns, index, column headers, non-null count, dtype, memory usage)
 loinc.info() 
 
-print(f"\nLOINC \033[34;1;4mILOC\033[0m \n\n{loinc.iloc[0]}") # display contents of first column; snapshots row contents
-print("loinc.head()")
+#  Print Unique data types and count of each dtype
+dtype_counts = Counter(str(dtype) for dtype in loinc.dtypes)
+print(f"\n      >>> \033[33;1mUnique data types and counts\033[0m: {dict(dtype_counts)}")
 
-print(f"\nLOINC \033[34;1;4mFIRST FIVE ROWS (Raw File):\033[0m\n:")
+# ILOC
+print(f"\n3>>> LOINC \033[33;1mILOC\033[0m \n\n{loinc.iloc[0]}") # display contents of first column; snapshots row contents
+# print("loinc.head()")
+
+# 1st five row preview
+print(f"\n4>>> LOINC \033[33;1mFIRST FIVE ROWS (Raw File):\033[0m\n:")
 print(loinc.head())
 
 loinc.to_csv("output\\loinc\\loinc1.csv") # Explore raw file as csv to view
@@ -36,7 +47,15 @@ shortloinc = shortloinc.rename(columns={
             "LONG_COMMON_NAME": 'Description'
             })
 
-print(f"\nCreated a copy with columns \033[34;1;4m'Code', 'Description' and 'Last_updated'\033[0m")
+pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
+
+# Describe for raw file
+print(f"\n >>> \033[32;1mDescribe - Raw file ??? \033[0m\n{loinc.describe()}")
+
+print("\n5>>>... \033[35;1mRaw LOINC file transformed to Extracted file ...\033[0m\n with columns \033[33;1m'Code', 'Description' and 'Last_updated'\033[0m")
+
+# Describe for extracted file
+print(f"\n >>> \033[32;1mDescribe - Extracted File ??? \033[0m\n{shortloinc.describe()}")
 
 # Explore shortloinc with 3 column headers from above
 shortloinc.to_csv("output\\loinc\\loinc2.csv", index=False)
@@ -46,31 +65,38 @@ rows_before = len(shortloinc)
 shortloinc_no_duplicates = shortloinc.drop_duplicates()
 rows_after = len(shortloinc_no_duplicates)
 duplicates_removed = rows_before - rows_after
-print(f"\n\033[34;1;4mDuplicates Removed\033[0m {duplicates_removed}")
 
+print(f"\n        >>> \033[33;1mDuplicates Removed\033[0m {duplicates_removed}")
 
 # REMOVE empty descriptions/blanks/NaN values 
 shortloinc = shortloinc[
     shortloinc['Description'].notna() & 
     shortloinc['Description'].str.strip() != '']
 
+print(f"\n6>>> Successfully \033[33;1mPARSED\033[0m {len(shortloinc)} LOINC records from {inputfile_path}")
 
-print(f"\nSuccessfully \033[34;1;4mPARSED\033[0m {len(shortloinc)} LOINC records from {file_path}")
-
-print(f"\n\033[34;1;4mSAVED\033[0m to {'output\\loinc\\loinc3.csv'}") 
-print(f"\nLOINC Dataset \033[34;1;4mSHAPE:\033[0m {shortloinc.shape}")
-print(f"\n\033[34;1;4mFIRST FIVE ROWS (Extracted LOINC File):\033[0m\n:")
+print(f"\n7>>> \033[33;1mSAVED\033[0m to {finaloutputfile_path}") 
+print(f"\n8>>> LOINC Dataset \033[33;1mSHAPE:\033[0m {shortloinc.shape}")
+print(f"\n9>>> \033[33;1mFIRST FIVE ROWS (Extracted LOINC File):\033[0m\n")
 print(shortloinc.head())
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortloinc.to_csv("output\\loinc\\loinc3.csv", index=False)
+shortloinc.to_csv(finaloutputfile_path, index=False)
 
-# File size
-file_size_bytes = os.path.getsize("output\\loinc\\loinc3.csv")
+# input file size
+inputfile_size_bytes = os.path.getsize(inputfile_path)
+inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
+print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
+
+# Input Memory usage
+print (f"\n     >>> \033[33;1mMemory usage\033[0m: {loinc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# extracted file size
+file_size_bytes = os.path.getsize(finaloutputfile_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
-print(f"\nLOINC \033[34;1;4mFile size\033[0m {file_size_mb:.2f} MB")
+print(f"11>>> LOINC \033[33;1mFile size\033[0m {file_size_mb:.2f} MB")
 
-# Memory usage
-print (f"\n\033[34;1;4mMemory usage (MB)\033[0m: {loinc.memory_usage(deep=True).sum() / 1024**2:.2f}") # different from polars
+# Extracted Memory usage
+print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shortloinc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
 
 gc.collect()

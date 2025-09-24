@@ -1,65 +1,121 @@
-# Using pandas explored and transformed input raw xlsx data file to output as 3 .csv files
-# to see raw file, to make raw file readable, and to extract needed columns from raw file plus adding a column
+# Using pandas explored and transformed input raw xlsx data file to output as a.csv file.
+# to see raw file, to make raw file readable, and to extract needed columns from raw file and add a column to final extracted file
 import pandas as pd
 from datetime import datetime
 import openpyxl as pxl
+from collections import Counter
 import os
 import gc
 
-file_path = "input\\HCPC2025_OCT_ANWEB.xlsx" # Define Filepath
+# Input file path
+inputfile_path = "input\\HCPC2025_OCT_ANWEB.xlsx"
 
+# cols not truncated
 pd.set_option('display.max_columns', None)
 
-hcpc_df = pd.read_excel(file_path) # Define df
+# Dataframe
+hcpc_df = pd.read_excel(inputfile_path) # Define df
 
-print(f"\nSuccessfully \033[34;1;4mLOADED\033[0m {len(hcpc_df)} HCPC records")
+# Loaded
+print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(hcpc_df)} HCPC records")
 
-print(f"\n\033[34;1;4mHCPC FILE INFO\033[0m\n") # basic info: range index, data columns (total columns, index, column headers, non-null count, dtype, memory usage)
+# raw file Shape
+print(f"\n2>>> HCPC Dataset \033[33;1mSHAPE:\033[0m {hcpc_df.shape}")
+
+# Total columns
+num_columns = hcpc_df.shape[1]
+print(f"      >>> \033[33;1mCOLUMNS\033[0m: {num_columns}")
+
+# Total rows
+num_rows = hcpc_df.shape[0]
+print(f"      >>> \033[33;1mROWS\033[0m: {num_rows}")
+
+# print info()
+print(f"\n3>>> HCPC \033[33;1mFILE INFO\033[0m\n") # basic info: range index, data columns (total columns, index, column headers, non-null count, dtype, memory usage)
 hcpc_df.info()
 
-print("\n\033[34;1;4mHCPC FIRST 5 ROWS (Raw File)\033[0m\n")
+# Unique data types and count
+dtype_counts = Counter(str(dtype) for dtype in hcpc_df.dtypes)
+print(f"\n      >>> \033[33;1mUnique data types and counts\033[0m: {dict(dtype_counts)}")
+
+# ILOC
+# get custom no of row as series
+row = hcpc_df.iloc[30]  
+print(f"\n4>>> HCPC \033[33;1mILOC\033[0m \n\n{row[:30]}") 
+# get all rows as series
+print(f"\n>>>>>>>> HCPC\033[34;1;4m ILOC\033[0m \n\n{hcpc_df.iloc}")
+print(hcpc_df.iloc[0]) 
+
+# First 5 row preview
+print("\n5>>> HCPC (Raw File) \033[33;1mFIRST 5 ROWS \033[0m\n")
 print(hcpc_df.head())   # preview first 5 rows with truncated column snapshot; 5 rows and x columns
 
-print(f"\n\033[34;1;4mHCPC ILOC\033[0m \n\n{hcpc_df.iloc[0]}") # display contents of first column; snapshots row contents
-print(hcpc_df.iloc[0]) # displays contents of first column; snapshots row contents
-
-hcpc_df.to_csv("output\\hcpc\\hcpc.csv") # Explore raw file as csv file > raw file has headers and is comma separated (cluttered)
-
+# save raw file to explore
+# HCPC RAW
+hcpc_df.to_csv("output\\hcpc\\hcpc.csv") # raw file has headers and is comma separated (cluttered)
+# HCPC2 RAW tab separated
 hcpc_df.to_csv("output\\hcpc\\hcpc2.csv", sep='\t', index=False, header=True) # Explore as tab separated csv file
 
+# identify columns
 hcpc_df[['HCPC', 'LONG DESCRIPTION','SHORT DESCRIPTION']] # Identify 3 columns to extract/explore 
 
+# alt "colspecs" not done
+
+# create copy, rename, add column
 shorthcpc = hcpc_df[['HCPC', 'LONG DESCRIPTION']].copy() # Extract 2 columns to new df; "copy()" to create a copy from original file with the selected columns
 shorthcpc = shorthcpc.rename(columns={'HCPC': 'Code', 'LONG DESCRIPTION': 'Description'}) # Rename columns: 'Code', 'Description' and 'Last_updated'
 shorthcpc['Last_updated'] = datetime.today().strftime('%Y-%m-%d') # Add new column with today's date
 
+# disable columns not truncated
+pd.reset_option('display.max_columns') # disables line 14> pd.set_option('display.max_columns', None)
+
+# Describe raw file
+print(f"\n >>> \033[32;1mDescribe - Raw File ???\033[0m\n{hcpc_df.describe()}")
+
+# print message 
+print("\n6>>> ... \033[35;1m Raw HCPC file transformed to extracted\033[0m  ...\nwith columns \033[33;1m'Code', 'Description' and 'Last_updated'\033[0m")
+
+# Describe extracted file
+print(f"\n >>> \033[32;1mDescribe - Extracted File ???\033[0m\n{shorthcpc.describe()}")
+
 # Remove duplicate rows
-shorthcpc = hcpc_df.drop_duplicates()
+# shorthcpc = hcpc_df.drop_duplicates()
 
-shorthcpc.to_csv("output\\hcpc\\hcpc3.csv", sep='\t', index=False, header=True) # Extract to a csv file with 3 columns
+# Filter out empty or null descriptions
+shorthcpc = shorthcpc[
+    shorthcpc['Description'].notna() &
+    (shorthcpc['Description'].str.strip() != "")
+    ]
+print(f"\n7>>> Successfully \033[33;1mPARSED\033[0m {len(hcpc_df)} HCPC records from {inputfile_path}")
 
-print(f"\nCreated copy with columns \033[34;1;4m'?', '?' and '?'\033[0m")
+# output file path
+outputfile_path = "output\\hcpc\\hcpc3.csv'"
 
-print(f"\nSuccessfully \033[34;1;4mPARSED\033[0m {len(hcpc_df)} HCPC records from {file_path}")
-# This line of code is printing a message indicating that the HCPC dataset has been saved to a
-# specific file path. The formatting used in the message is for visual enhancement. Here's a breakdown
-# of the message:
-print(f"\nHCPC \033[34;1;4mSAVED\033[0m to {'output\\hcpc\\hcpc3.csv'}") 
-print(f"\nHCPC Dataset \033[34;1;4mSHAPE:\033[0m {hcpc_df.shape}")
+# HCPC3 final file Extracted
+shorthcpc.to_csv(outputfile_path, sep='\t', index=False, header=True) # Extract to a csv file with 3 columns
+print(f"\n8>>> HCPC Extracted file \033[33;1mSAVED\033[0m to {outputfile_path}") 
 
-pd.reset_option('display.max_columns') # disabled > pd.set_option('display.max_columns', None)
+# extracted file Shape
+print(f"\n9>>> HCPC Dataset \033[33;1mSHAPE:\033[0m {shorthcpc.shape}")
 
-print(f"\n\033[34;1;4mFIRST 20 ROWS (Extracted HCPC File):\033[0m\n {hcpc_df.head(20)}")
+print(f"\n10>>> \033[33;1mPreview First few Rows\033[0m (Extracted HCPC File) \n\n {shorthcpc.head()}")
 
-# bold text: \033[1m
-# underline text: \033[4m
-# rest formatting: \033[0m
+pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
 
-# file size
-file_size_bytes = os.path.getsize("output\\hcpc\\hcpc3.csv")
-file_size_mb = file_size_bytes / (1024 * 1024)
-print(f"\nExtracted HCPC \033[34;1;4mFile size\033[0m: {file_size_mb:.2f} MB")
+# input file size
+inputfile_size_bytes = os.path.getsize(inputfile_path)
+inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
+print(f"\n11>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
+
 # Memory usage
-print (f"\n\033[34;1;4mMemory usage (MB)\033[0m: {hcpc_df.memory_usage(deep=True).sum() / 1024**2:.2f}\n") # different from polars
+print (f"\n     >>>Raw File \033[33;1mMemory usage \033[0m: {hcpc_df.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# extracted file size
+file_size_bytes = os.path.getsize(outputfile_path)
+file_size_mb = file_size_bytes / (1024 * 1024)
+print(f"12>>> Extracted HCPC \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
+
+# Memory usage
+print (f"\n     >>> Extracted File \033[33;1mMemory usage\033[0m: {shorthcpc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
 
 gc.collect()
