@@ -22,7 +22,6 @@ input/icd10cm_2025.txt
 # Ignore these scripts
 scripts/npi1.py
 scripts/snomed_pl.py
-scripts/icd10cmparse.py 
 
 # RAW DATA FILES for input/npi/ , input/rxnorm/ and input/snomed/ are publicly available information/datasets and need not be excluded.
 ## in fact, these files can be committed and in advanced stages of coding auto updating can be done from the specific url
