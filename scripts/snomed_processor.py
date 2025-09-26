@@ -5,11 +5,23 @@ from collections import Counter
 import os 
 import gc
 
+import time
+# Start Timestamp
+start_time_pandas = time.time()
+
+# input file path
+inputfile_path = "input/snomeddata.txt"
+
+# output file path
+outputfile_path = "output/snomed/snomed_pq.csv"
+outputfilepd_path = "output/snomed/snomed_pd.csv"
+outputfilepq_path = "output/snomed/snomed_pq.csv"
+
 pd.set_option('display.max_columns', None)
 
 # Define df / basic info / preview 
 # Snomed ct data (tab-delimited, limited to 100,000)
-snomed = pd.read_csv('input/snomeddata.txt', sep='\t', nrows=100000)
+snomed = pd.read_csv(inputfile_path, sep='\t', nrows=100000)
 # dtype=pl.Utf8
 
 print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(snomed)} SNOMED records")
@@ -99,17 +111,17 @@ def bad_line_handler(bad_line):
 print(f"\n7>>> Successfully \033[33;1mPARSED:\033[0m {len(shortsnomed)} records from Raw file")
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortsnomed.to_csv("output/snomed/snomed_pd.csv", index=False)
-shortsnomed.to_parquet("output/snomed/snomed_pq.csv", index=False)
+shortsnomed.to_csv(outputfilepd_path, index=False)
+shortsnomed.to_parquet(outputfilepq_path, index=False)
 
 print(f"\n      >>> Extracted as a \033[33;1mPARQUET File:\033[0m")
 
-print(f"\n8>>> \033[33;1mSAVED\033[0m to {'output/snomed/snomed.csv'}") 
+print(f"\n8>>> \033[33;1mSAVED\033[0m to {'outputfilepq_path'}") 
 print(f"\n9>>> Dataset \033[33;1mSHAPE:\033[0m {shortsnomed.shape}")
 print(f"\n10>>> \033[33;1mPreview First few Rows\033[0m (Extracted SNOMED File) \n\n {shortsnomed.head()}")
 
 # input file size
-inputfile_size_bytes = os.path.getsize("input/snomeddata.txt")
+inputfile_size_bytes = os.path.getsize(inputfile_path)
 inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
 print(f"\n11>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
 
@@ -117,11 +129,20 @@ print(f"\n11>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB"
 print(f"\n      >>> Raw File \033[33;1mMemory usage\033[0m: {snomed.memory_usage(deep=True).sum() / 1024**2:.2f} MB") # different from polars
 
 # extractedFile size
-file_size_bytes = os.path.getsize("output/snomed/snomed_pq.csv")
+file_size_bytes = os.path.getsize(outputfilepq_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
 print(f"\n12>>> Extracted \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 
 # Memory usage
 print(f"\n      >>> Extracted File \033[33;1mMemory usage (MB)\033[0m: {shortsnomed.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+hcpc_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+
+# Print total elapsed time
+print(f">>>>>> \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m<<<<<<\n")
 
 gc.collect()

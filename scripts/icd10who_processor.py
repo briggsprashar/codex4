@@ -4,12 +4,20 @@ import openpyxl as pxl
 from collections import Counter
 import os
 import gc
+import time
 
-file_path = "input\\icd10who2019.txt"
+# Start Timestamp
+start_time_pandas = time.time()
+
+# Input file path
+inputfile_path = "input\\icd10who2019.txt"
+
+# output file path
+outputfile_path = "output\\icd10who\\icd10who3.csv"
 
 pd.set_option('display.max_columns', None)
 
-icd10who_df = pd.read_csv(file_path, header=None, sep=';')
+icd10who_df = pd.read_csv(inputfile_path, header=None, sep=';')
 
 print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(icd10who_df)} ICD10WHO records")
 
@@ -46,7 +54,7 @@ columns = ['level', 'type', 'usage', 'sort', 'parent', 'code', 'display_code',  
            'definition', 'mortality_code', 'morbidity_code1', 'morbidity_code2', 'morbidity_code3', 'morbidity_code4'
            ]
 
-icd10who_df = pd.read_csv(file_path, header=None, sep=';', names=columns)
+icd10who_df = pd.read_csv(inputfile_path, header=None, sep=';', names=columns)
 
 # preview 2st 5 rows after renaming columns
 print("\n4.1>>> ICD10WHO \033[33;1mFIRST 5 ROWS (Columns Renamed)\033[0m\n")
@@ -94,13 +102,13 @@ print(f"\n6>>> Preview \033[33;1mFIRST few ROWS (Extracted ICD10WHO File):\033[0
 print(shorticd10who.head(20))
 
 # parsed msg
-print(f"\n7>>> Successfully \033[33;1mPARSED\033[0m {len(shorticd10who)} ICD10WHO records from {file_path}")
+print(f"\n7>>> Successfully \033[33;1mPARSED\033[0m {len(shorticd10who)} ICD10WHO records from {inputfile_path}")
 
 # Extract csv file with 'display_code', 'detailed_title' and 'last_updated' columns
-shorticd10who.to_csv("output\\icd10who\\icd10who3.csv", index=False)
+shorticd10who.to_csv(outputfile_path, index=False)
 
 # extracted file output location
-print(f"\n8>>> \033[33;1mSAVED\033[0m to {"output\\icd10who\\icd10who3.csv"}")
+print(f"\n8>>> \033[33;1mSAVED\033[0m to {"outputfile_path"}")
 
 # extracted file Shape
 print(f"\n9>>> ICD10WHO Dataset \033[33;1mSHAPE:\033[0m {shorticd10who.shape}")
@@ -114,11 +122,19 @@ print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB"
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {icd10who_df.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
 
 # Extracted file size
-file_size_bytes = os.path.getsize("output\\icd10who\\icd10who3.csv")
+file_size_bytes = os.path.getsize(outputfile_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
 print(f"11>>> Extracted ICD10WHO\033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 
 # Extracted File Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shorticd10who.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+icd10who_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
 gc.collect()

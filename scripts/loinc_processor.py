@@ -5,9 +5,16 @@ import openpyxl as pxl
 import os
 import gc
 
+import time
+# Start Timestamp
+start_time_pandas = time.time()
+
 # input file path
 inputfile_path= "input\\Loinc.csv"
-finaloutputfile_path = "output\\loinc\\loinc3.csv"
+
+# output file path
+outputfile_path = "output\\loinc\\loinc3.csv"
+
 # pd.set_option('display.max_columns', None)
 
 # dataframe 
@@ -75,13 +82,13 @@ shortloinc = shortloinc[
 
 print(f"\n6>>> Successfully \033[33;1mPARSED\033[0m {len(shortloinc)} LOINC records from {inputfile_path}")
 
-print(f"\n7>>> \033[33;1mSAVED\033[0m to {finaloutputfile_path}") 
+print(f"\n7>>> \033[33;1mSAVED\033[0m to {outputfile_path}") 
 print(f"\n8>>> LOINC Dataset \033[33;1mSHAPE:\033[0m {shortloinc.shape}")
 print(f"\n9>>> \033[33;1mFIRST FIVE ROWS (Extracted LOINC File):\033[0m\n")
 print(shortloinc.head())
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortloinc.to_csv(finaloutputfile_path, index=False)
+shortloinc.to_csv(outputfile_path, index=False)
 
 # input file size
 inputfile_size_bytes = os.path.getsize(inputfile_path)
@@ -92,11 +99,20 @@ print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB"
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {loinc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
 
 # extracted file size
-file_size_bytes = os.path.getsize(finaloutputfile_path)
+file_size_bytes = os.path.getsize(outputfile_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
 print(f"11>>> LOINC \033[33;1mFile size\033[0m {file_size_mb:.2f} MB")
 
 # Extracted Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shortloinc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+loinc_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
 
 gc.collect()

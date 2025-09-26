@@ -6,9 +6,16 @@ import openpyxl as pxl
 from collections import Counter
 import os
 import gc
+import time
+
+# Start Timestamp
+start_time_pandas = time.time()
 
 # Input file path
 inputfile_path = "input\\HCPC2025_OCT_ANWEB.xlsx"
+
+# output file path
+outputfile_path = "output\\hcpc\\hcpc3.csv'"
 
 # cols not truncated
 pd.set_option('display.max_columns', None)
@@ -41,9 +48,9 @@ print(f"\n      >>> \033[33;1mUnique data types and counts\033[0m: {dict(dtype_c
 # ILOC
 # get custom no of row as series
 row = hcpc_df.iloc[30]  
-print(f"\n4>>> HCPC \033[33;1mILOC\033[0m \n\n{row[:30]}") 
+print(f"\n4>>> HCPC Customizable\033[33;1mILOC\033[0m \n\n{row[:30]}") 
 # get all rows as series
-print(f"\n>>>>>>>> HCPC\033[34;1;4m ILOC\033[0m \n\n{hcpc_df.iloc}")
+print(f"\n      >>>> HCPC WHole \033[34;1;4m ILOC\033[0m \n\n{hcpc_df.iloc}")
 print(hcpc_df.iloc[0]) 
 
 # First 5 row preview
@@ -88,9 +95,6 @@ shorthcpc = shorthcpc[
     ]
 print(f"\n7>>> Successfully \033[33;1mPARSED\033[0m {len(hcpc_df)} HCPC records from {inputfile_path}")
 
-# output file path
-outputfile_path = "output\\hcpc\\hcpc3.csv'"
-
 # HCPC3 final file Extracted
 shorthcpc.to_csv(outputfile_path, sep='\t', index=False, header=True) # Extract to a csv file with 3 columns
 print(f"\n8>>> HCPC Extracted file \033[33;1mSAVED\033[0m to {outputfile_path}") 
@@ -117,5 +121,16 @@ print(f"12>>> Extracted HCPC \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 
 # Memory usage
 print (f"\n     >>> Extracted File \033[33;1mMemory usage\033[0m: {shorthcpc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+
+# Elapsed Time
+hcpc_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
 
 gc.collect()

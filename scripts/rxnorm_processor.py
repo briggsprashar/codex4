@@ -3,10 +3,16 @@ from datetime import datetime
 from collections import Counter
 import os
 import gc
+import time
+# Start Timestamp
+start_time_pandas = time.time()
+
+# Input file path
+inputfile_path = "input\RXNSAT.RRF"
 
 pd.set_option('display.max_columns', None) # reset: pd.reset_option('display.max_columns')
 
-rxnorm = pd.read_csv("input\\RXNSAT.RRF", nrows=100000,
+rxnorm = pd.read_csv(inputfile_path, nrows=100000,
     sep="|",        # pipe-delimited in raw file
     header=None,    # no headers in raw file
     dtype=str)      # can also use e before file path above to identify raw string data
@@ -41,6 +47,9 @@ shortrxnorm = shortrxnorm.rename(columns={
 
 # pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
 
+# output file path
+outputfile_path = 'output//rxnorm_short//rx_short.csv'
+
 # Describe for descriptive stats
 print(f"\n >>> \033[32;1mDescribe - Raw File ??? \033[0m\n{rxnorm.describe()}")
 
@@ -72,7 +81,7 @@ print(f"\n      >>> \033[33;1mDuplicates removed: \033[0m {duplicates_removed}??
 #   (shortrxnorm[9].str.strip() != "")]
 
 # Extract csv file with 'Code', 'Description' and 'Last_updated' columns
-shortrxnorm.to_csv(r'output\rxnorm_short\rx_short.csv', sep='\t', index=False, header=True)
+shortrxnorm.to_csv(outputfile_path, sep='\t', index=False, header=True)
 
 print(f"\n7>>> RxNorm Dataset \033[33;1mSHAPE\033[0m: {shortrxnorm.shape}")
 print(f"\n8>>> \033[33;1mFIRST FIVE ROWS\033[0m: Extracted RxNorm File\n")
@@ -82,17 +91,26 @@ print(f"\n9>>> \033[33;1mSAVED\033[0m to {'output/rxnorm/rxnorm.csv'}") # \r con
 # its better to create capture "input_path" and "output_path" in an object for reusability
 
 # input file size
-inputfile_size_bytes = os.path.getsize("input/RXNSAT.RRF")
+inputfile_size_bytes = os.path.getsize(inputfile_path)
 inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
 print(f"\n10>>> Raw RxNorm \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
 # Raw Memory usage
 print (f"\n     >>> Raw File \033[33;1mMemory usage\033[0m: {rxnorm.memory_usage(deep=True).sum() / 1024**2:.2f}MB") # different from polars
 
 # extracted File size
-file_size_bytes = os.path.getsize(r"output\rxnorm_short\rx_short.csv")
+file_size_bytes = os.path.getsize(outputfile_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
 print(f"\n11>>> RxNorm \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 
 # Extracted Memory usage
 print (f"\n     >>> Extracted File \033[33;1mMemory usage\033[0m: {shortrxnorm.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+rxnorm_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
 gc.collect()

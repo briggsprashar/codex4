@@ -8,9 +8,16 @@ import openpyxl as pxl
 from collections import Counter
 import os
 import gc
+import time
+
+# Start Timestamp
+start_time_pandas = time.time()
 
 # input file path
 inputfile_path = "input\\icd10cm_2025.txt"
+
+# output file path
+outputfile_path = "output\\icd10cm\\icd10cm3.csv"
 
 # cols not truncated
 pd.set_option('display.max_columns', None)
@@ -93,7 +100,7 @@ shorticd10cm_df = shorticd10cm[
 
 #### Count null Descriptions
 null_count = shorticd10cm['Description'].isnull().sum()
-print(f"    >>> Number of null Descriptions: {null_count}")
+print(f"\from nose.tools import set_trace; set_trace()    >>> Number of null Descriptions: {null_count}")
 
 #### Count empty strings
 empty_count = (shorticd10cm['Description'] == '').sum()
@@ -105,8 +112,6 @@ print(f"\n  >>> Number of ICD10US \033[33;1mBad Lines Skipped\033[0m: {bad_lines
 shorticd10cm_df = shorticd10cm.drop_duplicates()    
 
 print(f"\n7>>> Successfully \033[33;1mPARSED\033[0m {len(shorticd10cm_df)} ICD10US records from {inputfile_path}")
-
-outputfile_path = ("output\\icd10cm\\icd10cm3.csv")
 
 shorticd10cm.to_csv(outputfile_path, sep='\t', index=False) # Extract to a csv file with 3 columns
 
@@ -129,5 +134,13 @@ print(f"12>>> Extracted ICD10US \033[33;1mFile size\033[0m: {file_size_mb:.2f} M
 
 # Extracted File Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shorticd10cm_df.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+icd10cm_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
 gc.collect()

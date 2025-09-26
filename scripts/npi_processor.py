@@ -4,6 +4,10 @@ from collections import Counter
 import os
 import gc 
 
+import time
+# Start Timestamp
+start_time_pandas = time.time()
+
 inputfile_path = "input/npidata.csv"
 outputfile_path = "output/npi_small.parquet"
 npi = pl.read_csv(inputfile_path, n_rows=100000)
@@ -60,8 +64,7 @@ npi_small = npi_small.rename({
     })
 
 # Extract parsed file
-outputcsv_path = "output/npi_small.csv"
-npi_small.write_csv(outputcsv_path)
+npi_small.write_csv(outputfile_path)
 
 # Describe for descriptive stats
 print(f"\n>>> \033[32;1mDescribe - Raw File ???\033[0m, {npi.describe()}")
@@ -95,5 +98,13 @@ print(f">>> Extracted NPI \033[33;1mFILE SIZE\033[0m: {file_size_mb:.2f} MB")
 
 # Extracted Memory usage
 print(f"\n      >>> \033[33;1mMemory usage\033[0m: {npi_small.estimated_size() / 1024**2:.2f} MB\n") # different from pandas
+
+# End Timestamp
+end_time_pandas = time.time()
+# Elapsed Time
+npi_pandas = pl.read_csv(inputfile_path, n_rows=10000) # encoding_errors="ignore", on_bad_lines='skip')
+elapsed_time_pandas = end_time_pandas - start_time_pandas
+# Print total elapsed time
+print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
 gc.collect()
