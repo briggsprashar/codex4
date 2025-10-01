@@ -12,13 +12,13 @@ import time
 start_time_pandas = time.time()
 
 # Input file path
-inputfile_path = "input\\HCPC2025_OCT_ANWEB.xlsx"
+inputfile_path = "input\\HCPC.xlsx"
 
 # output file path
-outputfile_path = "output\\hcpc\\hcpc3.csv'"
+outputfile_path = "output\\hcpc\\hcpc_final.csv"
 
 # cols not truncated
-pd.set_option('display.max_columns', None)
+# pd.set_option('display.max_columns', None)
 
 # Dataframe
 hcpc_df = pd.read_excel(inputfile_path) # Define df
@@ -48,7 +48,7 @@ print(f"\n      >>> \033[33;1mUnique data types and counts\033[0m: {dict(dtype_c
 # ILOC
 # get custom no of row as series
 row = hcpc_df.iloc[30]  
-print(f"\n4>>> HCPC Customizable\033[33;1mILOC\033[0m \n\n{row[:30]}") 
+print(f"\n4>>> HCPC Customizable\033[33;1mILOC\033[0m \n\n{row[:10]}") 
 # get all rows as series
 print(f"\n      >>>> HCPC WHole \033[34;1;4m ILOC\033[0m \n\n{hcpc_df.iloc}")
 print(hcpc_df.iloc[0]) 
@@ -59,9 +59,9 @@ print(hcpc_df.head())   # preview first 5 rows with truncated column snapshot; 5
 
 # save raw file to explore
 # HCPC RAW
-hcpc_df.to_csv("output\\hcpc\\hcpc.csv") # raw file has headers and is comma separated (cluttered)
+hcpc_df.to_csv("output\\hcpc\\hcpc_raw1.csv") # raw file has headers and is comma separated (cluttered)
 # HCPC2 RAW tab separated
-hcpc_df.to_csv("output\\hcpc\\hcpc2.csv", sep='\t', index=False, header=True) # Explore as tab separated csv file
+hcpc_df.to_csv("output\\hcpc\\hcpc_raw2.csv", sep='\t', index=False, header=True) # Explore as tab separated csv file
 
 # identify columns
 hcpc_df[['HCPC', 'LONG DESCRIPTION','SHORT DESCRIPTION']] # Identify 3 columns to extract/explore 
@@ -104,7 +104,7 @@ print(f"\n9>>> HCPC Dataset \033[33;1mSHAPE:\033[0m {shorthcpc.shape}")
 
 print(f"\n10>>> \033[33;1mPreview First few Rows\033[0m (Extracted HCPC File) \n\n {shorthcpc.head()}")
 
-pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
+# pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
 
 # input file size
 inputfile_size_bytes = os.path.getsize(inputfile_path)
@@ -132,5 +132,12 @@ elapsed_time_pandas = end_time_pandas - start_time_pandas
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
-
 gc.collect()
+
+# print("hcpc_df.isnull().sum()\n")
+# print(shorthcpc.isnull().sum())
+# print(hcpc_df.describe(include='all'))
+# print(shorthcpc.describe(include='all'))
+# print(f"\033[33;1mActive Terms\033[0m count: {shorthcpc[shorthcpc['Code'] == 1].shape[0]}\n")
+# print(f"\033[33;1mLanguage\033[0m codes: {hcpc_df['LONG DESCRIPTION'].unique().tolist()}\n")
+# print(shorthcpc['Code'].str.len().describe())

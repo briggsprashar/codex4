@@ -14,7 +14,7 @@ import time
 start_time_pandas = time.time()
 
 # define file paths
-inputfile_path= 'input/icd10cm_2025.txt'
+inputfile_path= 'input/icd10cm.txt'
 outputfile_path = 'output/icd10cm/icd10cm_parsed.xlsx'
 finaloutputfile_path = 'output/icd10cm/icd10cm_parsed.csv'
 
@@ -36,6 +36,7 @@ with open(inputfile_path, 'r', encoding='utf-8') as file:
         remaining_text = line[16:].strip()    # Extract everything after position 16 as a string (description)
 
 # Split remaining_text by four or more consecutive spaces.
+# error in terminal: ('maxsplit' is passed as positional argument)
         parts = re.split(r'\s{4,}', remaining_text, 1) 
     # The assumption is that the first part is a short description and the second part is a longer/detailed description 
         description = parts[0].strip() if len(parts) > 0 else "" # short description

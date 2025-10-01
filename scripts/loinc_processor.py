@@ -13,7 +13,7 @@ start_time_pandas = time.time()
 inputfile_path= "input\\Loinc.csv"
 
 # output file path
-outputfile_path = "output\\loinc\\loinc3.csv"
+outputfile_path = "output\\loinc\\loinc_final.csv"
 
 # pd.set_option('display.max_columns', None)
 
@@ -39,7 +39,8 @@ print(f"\n3>>> LOINC \033[33;1mILOC\033[0m \n\n{loinc.iloc[0]}") # display conte
 print(f"\n4>>> LOINC \033[33;1mFIRST FIVE ROWS (Raw File):\033[0m\n:")
 print(loinc.head())
 
-loinc.to_csv("output\\loinc\\loinc1.csv") # Explore raw file as csv to view
+loinc.to_csv("output\\loinc\\loinc_raw1.csv") # Explore raw file as csv to view
+loinc.to_csv("output\\loinc\\loinc_raw2.csv", sep= '\t', header=True)
 
 # CREATE a trimmed DataFrame with selected columns and assign it to a new VARIABLE
     # use of double square brackets to select multiple columns
@@ -63,9 +64,6 @@ print("\n5>>>... \033[35;1mRaw LOINC file transformed to Extracted file ...\033[
 
 # Describe for extracted file
 print(f"\n >>> \033[32;1mDescribe - Extracted File ??? \033[0m\n{shortloinc.describe()}")
-
-# Explore shortloinc with 3 column headers from above
-shortloinc.to_csv("output\\loinc\\loinc2.csv", index=False)
 
 # Remove duplicate rows
 rows_before = len(shortloinc)

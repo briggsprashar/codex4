@@ -1,6 +1,9 @@
+# use of polars cud reduce elapsed time of almost 30 seconds
+
 import pandas as pd
 from datetime import datetime
 from collections import Counter
+import openpyxl as pxl
 import os
 import gc
 import time
@@ -8,18 +11,24 @@ import time
 start_time_pandas = time.time()
 
 # Input file path
-inputfile_path = "input\RXNSAT.RRF"
+inputfile_path = "input\\RXNSAT.RRF"
+
+# output file path
+outputfileexcel_path = 'output//rxnorm_short//rx_raw.xlsx'
+outputfilecsv_path = 'output//rxnorm_short//rx_raw.csv'
+outputfile_path = 'output//rxnorm_short//rx_short.csv'
 
 pd.set_option('display.max_columns', None) # reset: pd.reset_option('display.max_columns')
 
-rxnorm = pd.read_csv(inputfile_path, nrows=100000,
-    sep="|",        # pipe-delimited in raw file
-    header=None,    # no headers in raw file
-    dtype=str)      # can also use e before file path above to identify raw string data
+rxnorm = pd.read_csv(inputfile_path, sep='|', header=None, dtype=str, nrows=100000)
+rxnorm.to_excel(outputfileexcel_path, index=False, header=False)
+# rxnorm.to_excel(outputfileexcel_path, sep='\t', index=False, header=True)
+rxnorm_excel = pd.read_excel(outputfileexcel_path, header=None, dtype=str)
+rxnorm_excel.to_csv(outputfilecsv_path, sep=',', index=False, header=False)
 
-print(f"\n1>>> Successfully \033[34;1mLOADED\033[0m {len(rxnorm)} records")
+print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(rxnorm)} records")
 
-print(f"\n>>> RxNorm Dataset \033[34;1mSHAPE:\033[0m {rxnorm.shape}")
+print(f"\n>>> RxNorm Dataset \033[33;1mSHAPE:\033[0m {rxnorm.shape}")
 
 print(f"\n2>>> RxNorm \033[33;1mFILE INFO\033[0m\n") # basic info: range index, data columns (total columns, index, column headers, non-null count, dtype, memory usage)
 rxnorm.info() 
@@ -46,9 +55,6 @@ shortrxnorm = shortrxnorm.rename(columns={
 })
 
 # pd.reset_option('display.max_columns') # disables > pd.set_option('display.max_columns', None)
-
-# output file path
-outputfile_path = 'output//rxnorm_short//rx_short.csv'
 
 # Describe for descriptive stats
 print(f"\n >>> \033[32;1mDescribe - Raw File ??? \033[0m\n{rxnorm.describe()}")

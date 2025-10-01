@@ -2,6 +2,8 @@
 # to see raw file, to make raw file readable, and to extract needed columns from raw file
 # Multiindex issue ## Parsing done separately
 
+# no of bad lines processed 
+
 import pandas as pd 
 from datetime import datetime
 import openpyxl as pxl
@@ -14,10 +16,10 @@ import time
 start_time_pandas = time.time()
 
 # input file path
-inputfile_path = "input\\icd10cm_2025.txt"
+inputfile_path = "input\\icd10cm.txt"
 
 # output file path
-outputfile_path = "output\\icd10cm\\icd10cm3.csv"
+outputfile_path = "output\\icd10cm\\icd10cm_final.csv"
 
 # cols not truncated
 pd.set_option('display.max_columns', None)
@@ -70,8 +72,8 @@ print(f"\n4>>> ICD10US Raw File \033[33;1m ILOC\033[0m \n\n{icd10cm_df.iloc[0]}"
 print("\n5>>> ICD10US Raw File \033[33;1mFIRST 5 ROWS\033[0m\n")
 print(icd10cm_df.head())   # preview first 5 rows with truncated column snapshot; 5 rows and x columns
 
-icd10cm_df.to_csv("output\\icd10cm\\icd10cm.csv") # explore raw file 
-icd10cm_df.to_csv("output\\icd10cm\\icd10cm1.csv", index=False, sep='\t') # w.o index, tab separated
+icd10cm_df.to_csv("output\\icd10cm\\icd10cm_raw1.csv") # explore raw file 
+# icd10cm_df.to_csv("output\\icd10cm\\icd10cm_raw2.csv", sep=',', header=True)
 
 # Explore the csv as a fwf file, with headers
 icd10cm_df = pd.read_fwf(inputfile_path, header=None,

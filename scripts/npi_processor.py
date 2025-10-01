@@ -99,6 +99,8 @@ print(f">>> Extracted NPI \033[33;1mFILE SIZE\033[0m: {file_size_mb:.2f} MB")
 # Extracted Memory usage
 print(f"\n      >>> \033[33;1mMemory usage\033[0m: {npi_small.estimated_size() / 1024**2:.2f} MB\n") # different from pandas
 
+print(f"\nMemory usage (MB): {df.estimated_size() / 1024**2:.2f}")
+
 # End Timestamp
 end_time_pandas = time.time()
 # Elapsed Time

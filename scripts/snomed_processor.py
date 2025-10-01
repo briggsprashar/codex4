@@ -136,6 +136,10 @@ print(f"\n12>>> Extracted \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 # Memory usage
 print(f"\n      >>> Extracted File \033[33;1mMemory usage (MB)\033[0m: {shortsnomed.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
 
+print(f"      >>> \033[33;1mActive Terms\033[0m count: {snomed[snomed['active'] == 1].shape[0]}\n")
+print(f"      >>> \033[33;1mLanguage\033[0m codes: {snomed['languageCode'].unique().tolist()}\n")
+
+
 # End Timestamp
 end_time_pandas = time.time()
 # Elapsed Time

@@ -10,14 +10,32 @@ import time
 start_time_pandas = time.time()
 
 # Input file path
-inputfile_path = "input\\icd10who2019.txt"
+inputfile_path = "input/icd10who.txt"
 
 # output file path
-outputfile_path = "output\\icd10who\\icd10who3.csv"
+outputfile_path = "output\\icd10who\\icd10who_final.csv"
 
 pd.set_option('display.max_columns', None)
 
 icd10who_df = pd.read_csv(inputfile_path, header=None, sep=';')
+print(f"\n>>> \033[33;1mRaw csv length\033[0m: {len(icd10who_df)}")
+
+#################
+# Ignore BAD LINES
+bad_lines_count = 0
+def bad_line_handler(bad_line):
+    global bad_lines_count
+    bad_lines_count += 1
+    # Return None to skip the bad line
+    return None
+
+# Dataframe using engine='python' to call "on_bad_lines"
+icd10who2_df = pd.read_csv(inputfile_path, dtype=str, sep=r'\s+', engine='python', on_bad_lines=bad_line_handler) # Multi index output!!
+print(f"\n>>> length after \033[33;1mBad line removed\033[0m: {len(icd10who2_df)}")
+
+# print bad lines count
+print(f"\n>>> Number of ICD10WHO \033[33;1mBad Lines Skipped\033[0m: {bad_lines_count}")
+#################
 
 print(f"\n1>>> Successfully \033[33;1mLOADED\033[0m {len(icd10who_df)} ICD10WHO records")
 
@@ -48,7 +66,7 @@ print("\n3>>> ICD10WHO \033[33;1mFIRST 5 ROWS (Raw File)\033[0m\n")
 print(icd10who_df.head())
 
 # Output raw file as csv to view
-icd10who_df.to_csv("output\\icd10who\\icd10who1.csv") 
+icd10who_df.to_csv("output\\icd10who\\icd10who_raw1.csv") 
 
 columns = ['level', 'type', 'usage', 'sort', 'parent', 'code', 'display_code',  'icd10_code', 'title_en', 'parent_title', 'detailed_title', 
            'definition', 'mortality_code', 'morbidity_code1', 'morbidity_code2', 'morbidity_code3', 'morbidity_code4'
@@ -69,7 +87,7 @@ print(f"\n >>> \033[32;1mDescribe - Raw File ??? \033[0m\n{icd10who_df.describe(
 icd10who_df = icd10who_df.drop_duplicates()
 
 # Explore processed raw file with column headers and no index
-icd10who_df.to_csv("output\\icd10who\\icd10who2.csv", index=False)
+icd10who_df.to_csv("output\\icd10who\\icd10who_raw2.csv", index=False)
 
 # CREATE a trimmed DataFrame with selected columns and assign it to a new VARIABLE
     # use of double square brackets to select multiple columns
@@ -114,7 +132,7 @@ print(f"\n8>>> \033[33;1mSAVED\033[0m to {"outputfile_path"}")
 print(f"\n9>>> ICD10WHO Dataset \033[33;1mSHAPE:\033[0m {shorticd10who.shape}")
 
 # Input file size
-inputfile_size_bytes = os.path.getsize("input\\icd10who2019.txt")
+inputfile_size_bytes = os.path.getsize("input/icd10who.txt")
 inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
 print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
 
