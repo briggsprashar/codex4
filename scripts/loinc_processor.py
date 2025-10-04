@@ -91,7 +91,7 @@ shortloinc.to_csv(outputfile_path, index=False)
 # input file size
 inputfile_size_bytes = os.path.getsize(inputfile_path)
 inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
-print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
+print(f"\n10>>> Raw Loinc \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
 
 # Input Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {loinc.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
@@ -107,10 +107,14 @@ print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shortloinc.memory_usage(deep
 # End Timestamp
 end_time_pandas = time.time()
 # Elapsed Time
-loinc_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+# loinc_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
 elapsed_time_pandas = end_time_pandas - start_time_pandas
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
+loinc = None
+del loinc
+shortloinc = None
+del shortloinc
 
 gc.collect()

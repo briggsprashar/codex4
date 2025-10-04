@@ -134,7 +134,7 @@ print(f"\n9>>> ICD10WHO Dataset \033[33;1mSHAPE:\033[0m {shorticd10who.shape}")
 # Input file size
 inputfile_size_bytes = os.path.getsize("input/icd10who.txt")
 inputfile_size_mb = inputfile_size_bytes / (1024 * 1024)
-print(f"\n10>>> Raw HCPC \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
+print(f"\n10>>> Raw \033[33;1mFile size\033[0m: {inputfile_size_mb:.2f} MB")
 
 # Input File Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {icd10who_df.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
@@ -142,7 +142,7 @@ print (f"\n     >>> \033[33;1mMemory usage\033[0m: {icd10who_df.memory_usage(dee
 # Extracted file size
 file_size_bytes = os.path.getsize(outputfile_path)
 file_size_mb = file_size_bytes / (1024 * 1024)
-print(f"11>>> Extracted ICD10WHO\033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
+print(f"11>>> Extracted \033[33;1mFile size\033[0m: {file_size_mb:.2f} MB")
 
 # Extracted File Memory usage
 print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shorticd10who.memory_usage(deep=True).sum() / 1024**2:.2f} MB\n") # different from polars
@@ -150,9 +150,16 @@ print (f"\n     >>> \033[33;1mMemory usage\033[0m: {shorticd10who.memory_usage(d
 # End Timestamp
 end_time_pandas = time.time()
 # Elapsed Time
-icd10who_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+# icd10who_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
 elapsed_time_pandas = end_time_pandas - start_time_pandas
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
+icd10who_df = None
+del icd10who_df
+icd10who2_df = None    
+del icd10who2_df
+shorticd10who = None
+del shorticd10who
 
 gc.collect()

@@ -104,9 +104,14 @@ print(f"\nMemory usage (MB): {df.estimated_size() / 1024**2:.2f}")
 # End Timestamp
 end_time_pandas = time.time()
 # Elapsed Time
-npi_pandas = pl.read_csv(inputfile_path, n_rows=10000) # encoding_errors="ignore", on_bad_lines='skip')
+# npi_pandas = pl.read_csv(inputfile_path, n_rows=10000) # encoding_errors="ignore", on_bad_lines='skip')
 elapsed_time_pandas = end_time_pandas - start_time_pandas
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
+npi = None
+del npi
+npi_small = None
+del npi_small
 
 gc.collect()

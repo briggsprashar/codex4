@@ -119,4 +119,9 @@ elapsed_time_pandas = end_time_pandas - start_time_pandas
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
 
+rxnorm = None
+del rxnorm
+shortrxnorm = None
+del shortrxnorm
+
 gc.collect()

@@ -126,11 +126,16 @@ print (f"\n     >>> Extracted File \033[33;1mMemory usage\033[0m: {shorthcpc.mem
 end_time_pandas = time.time()
 
 # Elapsed Time
-hcpc_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
+# hcpc_df_pandas = pd.read_csv(inputfile_path, nrows=10000, encoding_errors="ignore", on_bad_lines='skip')
 elapsed_time_pandas = end_time_pandas - start_time_pandas
 
 # Print total elapsed time
 print(f" ------ \033[33;1mTotal Elapsed time:\033[0m \033[32;1m {elapsed_time_pandas:.3f} seconds \033[0m------\n")
+
+hcpc_df = None
+del hcpc_df
+shorthcpc = None    
+del shorthcpc
 
 gc.collect()
 
