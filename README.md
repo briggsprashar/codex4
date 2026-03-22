@@ -166,7 +166,7 @@ medical-codex-pipeline/
 </details>
 <br />
 
-## Remember there are many ways to get to Dublin!
+## Remember there are many routes to get to Dublin!
 
 <br />
 
