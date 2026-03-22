@@ -43,7 +43,7 @@ From identified medical codexes (7 different medical codex types; collectively c
 
     - Create Github Repo 
     - Clone it to VSCode on local machine  
-    - Optimize VSCode with extensions 
+    - Optimize VSCode with extensions
     - VSCode folder structure 
 
 **Folder structure**
