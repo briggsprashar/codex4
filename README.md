@@ -15,8 +15,8 @@ From identified medical codexes (7 different medical codex types; collectively c
 
 ## Tech-stack
 - Python 3.13.7
-- IDE: Visual Code Studio (I used this IDE)
-- Github (version control and code hosting)
+- IDE: Visual Code Studio
+- Github (version control and code hosting/sharing)
 
 <br />
 <details>
