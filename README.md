@@ -78,13 +78,13 @@ medical-codex-pipeline/
 
 **Data for Pipeline development**
 
-    - Download raw data files from identified under Data Sources above 
+    - Download raw data files identified in Data Sources above 
     
-    - For ICD-10(US), LOINC and HCPC get validated by signing up at the website below    
+    - For ICD-10(US), LOINC and HCPC datasets, get validated first by signing up at: 
+    
+  > <a href="https://uts.nlm.nih.gov/uts/signup-login" target="_blank" rel="noopener noreferrer">NIH-UMLS</a>
 
-<a href="https://uts.nlm.nih.gov/uts/signup-login" target="_blank" rel="noopener noreferrer">NIH-UMLS</a>
-
-    - From the downloaded data folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
+    - From the downloaded files/folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
 
 </details>
 
