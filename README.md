@@ -88,20 +88,20 @@ medical-codex-pipeline/
 
 <br />
 <details>
-  <summary>Raw data files</summary>  
+  <summary>Raw Data Files</summary>  
 <br />
 
-    - Codex data downloads are compressed files that need to be extracted. The folders will have many files that make the codex package that not only have raw data files, but also schema and other information to help understand, use and decode the medical codex data.
-  
-    - Identify files with relevant codex data. With .txt, .cvs, .xml, or .xlsx and other common file types, this can be done by opening these files in popular relevant applications e.g., Notepad, Spreadsheets, and even optimized browsers.
-  
-    - Alternatively, appropriately sized files (codex files are large; smaller files can be ignored from extracted data folders), can be opened with python script within VSCode and explored within VSCode.
-  
-    - Medical codex files such as those from UMLS Metathesaurus or RxNorm, are in Rich Release Format (RRF). These files are pipe-delimited text files, typically very large, and intended to be loaded into a relational database system for processing rather than directly opened in simple text editors due to size. 
+  - Extract** the compressed Downloaded Codex folders for codex package with raw data files, schema, etc.
     
-    - For this project the contents of the sole RRF file were visible only as an output file or in terminal as a preview '.head()'.
+  - Identify** files with relevant codex data (.txt, .cvs, .xml, .xlsx and other file types) by opening these files in popular relevant applications e.g., Notepad, Spreadsheets, and even optimized browsers.
   
-    - This project does not include reading relevant data from a PDF or similar file type,
+  - Identify appropriately sized files (codex files are large; smaller files can be ignored from extracted data folders), and alternatively opened with python script within VSCode and explored within VSCode.
+  
+  - Pipe-delimited text files such as those from UMLS Metathesaurus or RxNorm, are in Rich Release Format (RRF), typically very large, and intended to be loaded into a relational database system for processing rather than directly opening in simple text editors. 
+  
+  - The sole RRF file contents were visible only as an output file or in terminal as a preview, etc.
+  
+  - Reading relevant data from a PDF or similar file type not included in this code.
 </details>
 <br />
 <details>
