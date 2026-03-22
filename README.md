@@ -62,7 +62,7 @@ medical-codex-pipeline/
 ├── README.md
 └── requirements.txt
 ```
-**VSCode environment based on Requirements.txt and additional dependencies** 
+**Requirements.txt and additional dependencies** 
 
     - Pandas
     - Polars
