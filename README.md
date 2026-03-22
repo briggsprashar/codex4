@@ -91,9 +91,9 @@ medical-codex-pipeline/
   <summary>Raw Data Files</summary>  
 <br />
 
-  - Extract** the compressed Downloaded Codex folders for codex package with raw data files, schema, etc.
+  - Extract the compressed Downloaded Codex folders for codex package with raw data files, schema, etc.
     
-  - Identify** files with relevant codex data (.txt, .cvs, .xml, .xlsx and other file types) by opening these files in popular relevant applications e.g., Notepad, Spreadsheets, and even optimized browsers.
+  - Identify files with relevant codex data (.txt, .cvs, .xml, .xlsx and other file types) by opening these files in popular relevant applications e.g., Notepad, Spreadsheets, and even optimized browsers.
   
   - Identify appropriately sized files (codex files are large; smaller files can be ignored from extracted data folders), and alternatively opened with python script within VSCode and explored within VSCode.
   
@@ -108,25 +108,27 @@ medical-codex-pipeline/
   <summary>Project data outputs</summary>  
 <br />
 
-    - Raw data downloads using compliant methods and protocols.
+  - Raw data downloaded using compliant methods and protocols.
     
-    - Raw data file to be ingested via VSCode with output in .CSV file type.
+  - Raw data file ingested via VSCode with output in .CSV file type.
     
-        - 2 columns extracted from each processed codex data file (some sort of unique identifier and a descriptor e.g., 'Code', 'Description', or 'Last_Name'), where necessary renamed.  
+  - 2 columns extracted from each processed codex data file (using a unique identifier and a descriptor e.g., 'Code', 'Description', or 'Last_Name'), where necessary renamed.  
     
-        - 1 column needs to be added to the output file with the date of last update (e.g.,'Last_updated')
+  - 1 column added to the output file with the date of last update (e.g.,'Last_updated')
 
-    - Dependencies and configuration setting for Github repository via VSCode configurations reflected in Requirements.txt
+  - VSCode configurations in requirements.txt has dependencies and configuration settings
     
-    - Explore file ingestion of files of different sises using Pandas and Polars.
+  - Used Pandas and Polars to explore file ingestion of files of different sizes
     
-    - Code validation via running code snippets in the terminal and previewing output files. 
+  - Code validated by running code snippets in the terminal and previewing output files. 
     
-    - Generating a .csv for each raw data file using pandas, polars or parquet.
+  - Generated a .csv for each raw data file using pandas, polars or parquet.
     
-    - Documentation and logging embedded in the code and via README.md and the code.
+  - Documentation in the code and via README.md and the code.
+
+  - Will try and add Logging to the code
     
-    - Reproducibility via Github repository
+  - Reproducibility via Github repository
 </details>
 <br />
 <details>
