@@ -110,7 +110,7 @@ medical-codex-pipeline/
 
   - Raw data downloaded using compliant methods and protocols.
     
-  - Raw data file ingested via VSCode with output in .CSV file type.
+  - Raw data files ingested via VSCode with output in .CSV file type.
     
   - 2 columns extracted from each processed codex data file (using a unique identifier and a descriptor e.g., 'Code', 'Description', or 'Last_Name'), where necessary renamed.  
     
@@ -158,9 +158,9 @@ medical-codex-pipeline/
 <br />
 
 - Push to Github repository
-- Clone (copy) the code in a new local VSCode folder 
+- Clone the code in a new local VSCode folder 
 - Reproduce the results from copied local folder for validation and to test reproducibility 
-- Identify bugs and issues in reproducibility noted in an issue log. 
+- Identify bugs and issues in reproducibility noted in an issue log (logging not inlcuded in the code)
 - Try and identify if the issues are because of environment/dependencies or script, and resolve. 
 - List unresolved issues
 </details>
