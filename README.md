@@ -174,8 +174,10 @@ medical-codex-pipeline/
   <summary>Clean up local machine</summary>  
 <br />
 
-- After validating the cloned files and testing reproducibility (identifying issues in an issue log for further improvement), archive the project folder on your machine, noting the raw data file download process so it can be repeated. The raw data files can be deleted from the local machine.
-- Record key learning in whichever way you deem fit. The important thing is to learn and understand the concepts and process.
+- Validate the cloned files and testing reproducibility (identifying issues in an issue log for further improvement)
+- Archive the project folder on your machine, noting the raw data file download process so it can be repeated.
+- The raw data files can be deleted from the local machine.
+- Record key learning: learn and understand the concepts and process.
 - Move on to the next project! But after understanding the concepts not just hacking out the output files through "vibe coding". 
 </details
 
@@ -185,8 +187,8 @@ medical-codex-pipeline/
   <summary>Outcome and limitations</summary>  
 <br />
 
-- This repo explore code from the repo medical-codex-pipeline by using some different modules.
-- All scripts have been standardized to explore pretty much the same data elements using similar code. 
+- This repo explores code from the repo medical-codex-pipeline.
+- All scripts have been standardized to explore pretty much the same data elements using almost similar code. 
 - Common functions (used in repo medical-codex-pipeline) could have made the code much efficient. 
 </details>
 <br />
@@ -199,10 +201,10 @@ medical-codex-pipeline/
 - Sample codes exposed different techniques, and as a result, tools and dependencies, to process data and create data pipelines using basic Python code, VSCode dependencies, environment creation, and Github integration.
 - The use of LLM supported coding also exposed many other ways to process the data to create data pipelines than shared in the sample code blocks. 
 - LLM use gave exposure to the sheer expanse of coding in data analytics.
-- Various dependencies: Inbuilt Python modules, Python libraries and 3rd party modules. (Tabular, Datetime, Path, Wheel, Openpyxl, Fastparquet, Pyarrow.)
-- Python code workflow using VSCode integrating to Github.
+- Various dependencies: Inbuilt Python modules, Python libraries and 3rd party modules. (Tabular, Datetime, Path, Wheel, Openpyxl, Fastparquet, Pyarrow, etc.)
+- Python code workflow using VSCode integrating to Github for reproducibility
 </details>
 
 ---
-## ✨ 📊 To many more data pipelines, smooth data flows and insightful analytics ahead! 📊
+
 
