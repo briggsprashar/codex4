@@ -68,7 +68,6 @@ medical-codex-pipeline/
   - Openpyxl
   - Rich
   - Requests    
-    
   - Pyarrow
   - Fastparaquet
   - Wheel
@@ -76,11 +75,9 @@ medical-codex-pipeline/
 
 **Data for Pipeline development**
 
-* Download raw data files identified in Data Sources above 
-    
-* For ICD-10(US), LOINC and HCPC datasets, get validated first by signing up at [NIM UMLS](https://www.uts.nlm.nih.gov/uts/signup-login)
-
-* From the downloaded files/folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
+- Download raw data files identified in Data Sources above 
+- For ICD-10(US), LOINC and HCPC datasets, get validated first by signing up at [NIM UMLS](https://www.uts.nlm.nih.gov/uts/signup-login)
+- From the downloaded files/folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
 
 </details>
 
