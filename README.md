@@ -2,11 +2,11 @@
 ### Medical Codex Pipeline Development
 
 ## Tags
-- ETL pipeline development 
-- Data quality validation 
-- File format optimization 
-- Production-ready code practices
-- Workflow explanation
+* ETL pipeline development 
+* Data quality validation 
+* File format optimization 
+* Production-ready code practices
+* Workflow explanation
 
 ## Objective
 From identified medical codexes (7 different medical codex types; collectively codexes), create a data pipeline using automated processes and tools that move raw data to local machines for ETL tasks, with the reproducible scripts available on a public Github repository for version control. The aim is to load the transformed data to be available for data wrangling. Proof of concept would be reproducibility from scripts and accompanying files loaded to Github, from where the repository can be cloned and the tasks reproduced. 
@@ -40,11 +40,10 @@ From identified medical codexes (7 different medical codex types; collectively c
 <br />
 
 **Basics**
-
-    - Create Github Repo 
-    - Clone it to VSCode on local machine  
-    - Optimize VSCode with extensions
-    - VSCode folder structure 
+  - Create Github Repo 
+  - Clone it to VSCode on local machine  
+  - Optimize VSCode with extensions
+  - VSCode folder structure 
 
 **Folder structure**
 
@@ -63,28 +62,25 @@ medical-codex-pipeline/
 └── requirements.txt
 ```
 **Requirements.txt and additional dependencies** 
-
-    - Pandas
-    - Polars
-    - Tabulate
-    - Openpyxl
-    - Rich
-    - Requests    
+  - Pandas
+  - Polars
+  - Tabulate
+  - Openpyxl
+  - Rich
+  - Requests    
     
-    - Pyarrow
-    - Fastparaquet
-    - Wheel
-    - PyPi
+  - Pyarrow
+  - Fastparaquet
+  - Wheel
+  - PyPi
 
 **Data for Pipeline development**
 
-    - Download raw data files identified in Data Sources above 
+* Download raw data files identified in Data Sources above 
     
-    - For ICD-10(US), LOINC and HCPC datasets, get validated first by signing up at: 
-    
-  > <a href="https://uts.nlm.nih.gov/uts/signup-login" target="_blank" rel="noopener noreferrer">NIH-UMLS</a>
+* For ICD-10(US), LOINC and HCPC datasets, get validated first by signing up at [NIM UMLS](https://www.uts.nlm.nih.gov/uts/signup-login)
 
-    - From the downloaded files/folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
+* From the downloaded files/folders, upload identified suitable raw datafiles to the Input folder of the cloned project repository in VSCode.
 
 </details>
 
